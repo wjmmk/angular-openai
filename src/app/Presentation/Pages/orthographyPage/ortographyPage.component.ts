@@ -27,7 +27,7 @@ import { OpenAiService } from 'app/Presentation/Services/opeai.service';
 })
 export default class OrtographyPageComponent {
 
-  public messages = signal<Message[]>([{text: 'Es una prueba', isGpt: false }]);
+  public messages = signal<Message[]>([{text: 'Esto me ayudará a crear aplicaciones mucho más efectivas.', isGpt: false }]);
   public isLoading = signal(false);
 
   openAiService = inject(OpenAiService)

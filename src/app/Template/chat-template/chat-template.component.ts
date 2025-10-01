@@ -10,7 +10,7 @@ import { MyMessageComponent } from 'app/Presentation/Components/chat/my-message/
 
 
 @Component({
-  selector: 'ortography-page',
+  selector: 'chat-template',
   standalone: true,
   imports: [
     CommonModule,
@@ -22,7 +22,7 @@ import { MyMessageComponent } from 'app/Presentation/Components/chat/my-message/
   templateUrl: './chat-template.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class OrtographyPageComponent {
+export default class ChatTemplateComponent {
 
   public messages = signal<Message[]>([{text: 'Es una prueba', isGpt: false }]);
   public isLoading = signal(false);
