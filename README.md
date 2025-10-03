@@ -13,3 +13,11 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Demo
 ![](https://github.com/wjmmk/angular-openai/blob/main/src/assets/images/vista-2.png)
 
+
+# Install
+
+1. Clone repository
+2. Install dependencies ```npm i ó npm install```
+3. Create .env file based on the .env.template
+4. Run the app ```npm run start```.
+
