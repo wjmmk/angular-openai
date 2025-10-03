@@ -8,6 +8,7 @@
       "@use-cases/*": ["app/core/use-case/*"],
       "@interfaces/*": ["app/interfaces/*"]
     },
+    "ignoreDeprecations": "5.0",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
