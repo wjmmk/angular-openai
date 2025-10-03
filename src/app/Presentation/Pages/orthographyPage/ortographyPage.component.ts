@@ -36,6 +36,10 @@ export default class OrtographyPageComponent {
     console.log('Desde el Componente de Ortografia: ', event);
   }
 
+  handleMessageWithFile({ prompt, file }: TextMessageEvent) {
+    console.log('Desde el Componente de Ortografia: ', { prompt, file });
+  }
+
   handleMessageWithSelect(event: TextMessageBoxEvent) {
     console.log(event)
   }
