@@ -7,7 +7,11 @@
 
       @for (message of messages(); track $index) {
         @if(message.isGpt) {
-          <chat-bubbles [text]="message.text" />
+          <gpt-message-orthography
+          [text]="message.text"
+          [errors]="message.info?.errors || []"
+          [userScore]="message.info!.userScore"
+          />
         } @else {
           <my-message [text]="message.text" />
         }
@@ -20,19 +24,19 @@
     </div>
   </div>
   <!-- MessageBox -->
-    <!-- <text-message-box
+    <text-message-box
       placeholder="Esperamos que nos brinde mas información."
       (onMessage)="handleMessage($event)"
-    /> -->
+    />
 
     <!-- <text-message-box-file
       placeholder="Esperamos que nos brinde mas información."
       (onMessage)="handleMessage($event)"
     /> -->
 
-    <text-message-box-select
+    <!-- <text-message-box-select
       [options]="[{id: '1022', text: 'Comprar'}, {id: '1023', text: 'Vender'}]"
       placeholder="Esperamos que nos brinde mas información."
       (onMessage)="handleMessageWithSelect($event)"
-    />
+    /> -->
 </div>

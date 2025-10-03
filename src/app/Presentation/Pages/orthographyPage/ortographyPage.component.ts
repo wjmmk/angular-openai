@@ -8,6 +8,7 @@ import { TextMessageBoxFileComponent, TextMessageEvent } from 'app/Presentation/
 import { TextMessageBoxEvent, TextMessageBoxSelectComponent } from 'app/Presentation/Components/text-boxes/text-message-box-select/text-message-box-select.component';
 import { Message } from 'app/Interfaces/message.interface';
 import { OpenAiService } from 'app/Presentation/Services/opeai.service';
+import { GptMessageOrthographyComponent } from 'app/Presentation/Components/chat/gpt-message-orthography/gpt-message-orthography.component';
 
 
 @Component({
@@ -18,26 +19,41 @@ import { OpenAiService } from 'app/Presentation/Services/opeai.service';
     ChatBubblesComponent,
     MyMessageComponent,
     TypingLoaderComponent,
-    /* TextMessageBoxComponent */
+    TextMessageBoxComponent,
     /* TextMessageBoxFileComponent, */
-    TextMessageBoxSelectComponent
+    /* TextMessageBoxSelectComponent */
+    GptMessageOrthographyComponent
   ],
   templateUrl: './ortographyPage.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class OrtographyPageComponent {
 
-  public messages = signal<Message[]>([{text: 'Esto me ayudará a crear aplicaciones mucho más efectivas.', isGpt: false }]);
+  public messages = signal<Message[]>([]);
   public isLoading = signal(false);
+  public openAiService = inject(OpenAiService);
 
-  openAiService = inject(OpenAiService)
 
-  handleMessage(event: TextMessageEvent) {
-    console.log('Desde el Componente de Ortografia: ', event);
+  handleMessage(event: string) {
+    /* console.log('Componente de Ortografia: ', event); */
+    this.isLoading.set(true);
+    this.messages.update((prevMessages) => [...prevMessages, { text: event, isGpt: false }]);
+
+    this.openAiService.checkOrthography(event).subscribe({
+      next: (response) => {
+        this.messages.update((prevMessages) => [...prevMessages, { text: response.message, isGpt: true }]);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        console.error('Error al obtener la respuesta de OpenAI:', error);
+        this.messages.update((prevMessages) => [...prevMessages, { text: 'Lo siento, ha ocurrido un error al procesar tu solicitud.', isGpt: true }]);
+        this.isLoading.set(false);
+      }
+    });
   }
 
   handleMessageWithFile({ prompt, file }: TextMessageEvent) {
-    console.log('Desde el Componente de Ortografia: ', { prompt, file });
+    console.log('Componente de Ortografia: ', { prompt, file });
   }
 
   handleMessageWithSelect(event: TextMessageBoxEvent) {
