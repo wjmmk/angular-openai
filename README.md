@@ -14,7 +14,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 ![](https://github.com/wjmmk/angular-openai/blob/main/src/assets/images/vista-2.png)
 
 
-# Install
+# Project Setup
 
 1. Clone repository
 2. Install dependencies ```npm i ó npm install```
