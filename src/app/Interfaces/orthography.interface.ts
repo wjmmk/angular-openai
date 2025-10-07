@@ -1,6 +1,6 @@
 
 export interface OrthographyResponse {
-  errors: string[];
   userScore: number;
+  errors: string[];
   message: string;
 }
