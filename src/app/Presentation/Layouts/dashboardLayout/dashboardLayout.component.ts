@@ -9,7 +9,7 @@ import { routes } from '../../../app.routes';
   standalone: true,
   imports: [CommonModule, RouterModule, SidebarMenuItemComponent],
   templateUrl: './dashboardLayout.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardLayoutComponent {
   // obtiene las rutas declaradas en el app.routes

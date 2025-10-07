@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 export interface TextMessageEvent {
@@ -12,11 +12,12 @@ export interface TextMessageEvent {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './text-message-box-file.component.html',
-  styleUrl: './text-message-box-file.component.scss'
+  styleUrl: './text-message-box-file.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TextMessageBoxFileComponent {
   @Input() placeholder: string = '';
-  @Output() onMessage = new EventEmitter<TextMessageEvent>
+  @Output() onMessage = new EventEmitter<TextMessageEvent>();
 
   public fb = inject(FormBuilder)
   public form = this.fb.group({

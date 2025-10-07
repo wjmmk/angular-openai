@@ -20,17 +20,16 @@ import { MyMessageComponent } from 'app/Presentation/Components/chat/my-message/
     TextMessageBoxComponent
   ],
   templateUrl: './chat-template.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class ChatTemplateComponent {
 
-  public messages = signal<Message[]>([{text: 'Es una prueba', isGpt: false }]);
+  public messages = signal<Message[]>([]);
   public isLoading = signal(false);
+  public openAiService = inject(OpenAiService)
 
-  openAiService = inject(OpenAiService)
-
-  handleMessage(event: string) {
-    console.log('Desde el Componente de Ortografia: ', event);
+  handleMessage(prompt: string) {
+    console.log('Desde el Componente de Ortografia: ', prompt);
   }
 
   handleMessageWithSelect(event: TextMessageBoxEvent) {

@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './gpt-message-orthography.component.html',
   styleUrl: './gpt-message-orthography.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GptMessageOrthographyComponent {
 

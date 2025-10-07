@@ -1,22 +1,24 @@
-<div class="col-start-6 col-end-12 p-3 rounded-lg">
-  <div class="flex items-center justify-start flex-row-reverse">
-    <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-      W
+<div class="col-start-1 col-end-9 p-3 rounded-lg">
+  <div class="flex flex-row items-start">
+    <div class="flex items-center justify-center h-10 w-10 rounded-full bg-green-600 flex-shrink-0">
+      G
     </div>
-    <div class="relative mr-3 text-sm bg-black bg-opacity-25 pt-3 pb-2 px-4 shadow rounded-xl">
+
+    <div class="relative ml-3 text-sm bg-black bg-opacity-25 pt-3 pb-2 px-4 shadow rounded-xl">
       <h3 class="text-3xl">Puntaje: {{ userScore }}</h3>
       <p>{{ text }}</p>
 
-      @if (errors.length > 0) {
-      <div class="text-red-500">
-        <h3 class="text-2xl">Errores encontrados:</h3>
-      </div>
+      @if( errors.length > 0 ) {
+        <h3 class="text-2xl">Errores encontrados</h3>
       }
+
+      <ul>
+        @for (error of errors; track $index; let first = $first ) {
+        <li>{{ error }}</li>
+        } @empty {
+        <li>No se encontraron errores, perfecto!</li>
+        }
+      </ul>
     </div>
-    <ul>
-      @for (error of errors; track $index; let first = $first) {
-      <li>{{ error }}</li>
-      } @empty { <li>No hay errores</li> }
-    </ul>
   </div>
 </div>

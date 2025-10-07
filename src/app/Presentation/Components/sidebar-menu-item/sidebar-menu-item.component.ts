@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   templateUrl: './sidebar-menu-item.component.html',
   styleUrl: './sidebar-menu-item.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarMenuItemComponent {
   @Input({ required: true}) icon!: string;

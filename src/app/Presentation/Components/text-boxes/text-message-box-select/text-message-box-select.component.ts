@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 interface Option {
@@ -17,7 +17,8 @@ export interface TextMessageBoxEvent {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './text-message-box-select.component.html',
-  styleUrl: './text-message-box-select.component.scss'
+  styleUrl: './text-message-box-select.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TextMessageBoxSelectComponent {
   @Input() placeholder: string = '';

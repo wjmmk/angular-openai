@@ -25,7 +25,7 @@ import { GptMessageOrthographyComponent } from 'app/Presentation/Components/chat
     GptMessageOrthographyComponent
   ],
   templateUrl: './ortographyPage.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class OrtographyPageComponent {
 
@@ -34,21 +34,33 @@ export default class OrtographyPageComponent {
   public openAiService = inject(OpenAiService);
 
 
-  handleMessage(event: string) {
-    /* console.log('Componente de Ortografia: ', event); */
+  handleMessage(prompt: string) {
     this.isLoading.set(true);
-    this.messages.update((prevMessages) => [...prevMessages, { text: event, isGpt: false }]);
+    this.messages.update(messages => [...messages, { text: prompt, isGpt: false }]);
 
-    this.openAiService.checkOrthography(event).subscribe({
-      next: (response) => {
-        this.messages.update((prevMessages) => [...prevMessages, { text: response.message, isGpt: true }]);
+    this.openAiService.checkOrthography(prompt).subscribe( resp => {
+
         this.isLoading.set(false);
-      },
-      error: (error) => {
-        console.error('Error al obtener la respuesta de OpenAI:', error);
-        this.messages.update((prevMessages) => [...prevMessages, { text: 'Lo siento, ha ocurrido un error al procesar tu solicitud.', isGpt: true }]);
-        this.isLoading.set(false);
-      }
+        // Verificar si la respuesta es válida
+        if (!resp || typeof resp.message === 'undefined') {
+          this.handleError('Respuesta inválida del servidor');
+          return;
+        }
+
+        // Si el mensaje es un objeto vacío, mostrar error
+        if (typeof resp.message === 'object' && Object.keys(resp.message).length === 0) {
+          this.handleError('El servidor está temporalmente sobrecargado. Por favor, intenta más tarde.');
+          return;
+        }
+        this.messages.update(messages => [
+          ...messages,
+          {
+            isGpt: true,
+            text: resp.message,
+            info: resp
+          }
+        ]);
+
     });
   }
 
@@ -58,5 +70,22 @@ export default class OrtographyPageComponent {
 
   handleMessageWithSelect(event: TextMessageBoxEvent) {
     console.log(event)
+  }
+
+  private handleError(errorMessage: string) {
+    console.error(errorMessage);
+    this.messages.update(messages => [
+      ...messages,
+      {
+        text: errorMessage,
+        isGpt: true,
+        info: {
+          userScore: 0,
+          errors: [],
+          message: errorMessage
+        }
+      }
+    ]);
+    this.isLoading.set(false);
   }
 }
