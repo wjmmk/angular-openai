@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Message } from 'app/Interfaces';
 import { ChatBubblesComponent } from 'app/Presentation/Components/chat/chat-bubbles/chat-bubbles.component';
+import { GptMessageOrthographyComponent } from 'app/Presentation/Components/chat/gpt-message-orthography/gpt-message-orthography.component';
 import { MyMessageComponent } from 'app/Presentation/Components/chat/my-message/my-message.component';
 import { TextMessageBoxEvent } from 'app/Presentation/Components/text-boxes/text-message-box-select/text-message-box-select.component';
 import { TextMessageBoxComponent } from 'app/Presentation/Components/text-boxes/text-message-box/text-message-box.component';
@@ -14,6 +15,7 @@ import { OpenAiService } from 'app/Presentation/Services/opeai.service';
   imports: [
     CommonModule,
     ChatBubblesComponent,
+    GptMessageOrthographyComponent,
     MyMessageComponent,
     TypingLoaderComponent,
     TextMessageBoxComponent

@@ -6,7 +6,11 @@
 
       @for (message of messages(); track $index) {
         @if(message.isGpt) {
-          <chat-bubbles [text]="message.text" />
+          <gpt-message-orthography
+            [text]="message.text"
+            [errors]="message.info?.errors || []"
+            [userScore]="message.info!.userScore"
+          />
         } @else {
           <my-message [text]="message.text" />
         }
@@ -22,5 +26,6 @@
     <text-message-box
       placeholder="Esperamos que nos brinde mas información."
       (onMessage)="handleMessage($event)"
+      [disableCorrections]="false"
     />
 </div>

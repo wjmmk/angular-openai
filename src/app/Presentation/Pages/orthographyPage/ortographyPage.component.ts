@@ -39,9 +39,9 @@ export default class OrtographyPageComponent {
     this.messages.update(messages => [...messages, { text: prompt, isGpt: false }]);
 
     this.openAiService.checkOrthography(prompt).subscribe( resp => {
-
         this.isLoading.set(false);
-        // Verificar si la respuesta es válida
+
+        /* // Verificar si la respuesta es válida
         if (!resp || typeof resp.message === 'undefined') {
           this.handleError('Respuesta inválida del servidor');
           return;
@@ -51,9 +51,10 @@ export default class OrtographyPageComponent {
         if (typeof resp.message === 'object' && Object.keys(resp.message).length === 0) {
           this.handleError('El servidor está temporalmente sobrecargado. Por favor, intenta más tarde.');
           return;
-        }
-        this.messages.update(messages => [
-          ...messages,
+        } */
+
+        this.messages.update(message => [
+          ...message,
           {
             isGpt: true,
             text: resp.message,
@@ -72,7 +73,7 @@ export default class OrtographyPageComponent {
     console.log(event)
   }
 
-  private handleError(errorMessage: string) {
+  /* private handleError(errorMessage: string) {
     console.error(errorMessage);
     this.messages.update(messages => [
       ...messages,
@@ -87,5 +88,5 @@ export default class OrtographyPageComponent {
       }
     ]);
     this.isLoading.set(false);
-  }
+  } */
 }

@@ -3,7 +3,7 @@ import { environment } from "../../../../environments/environment.development";
 
 export const orthographyUseCaseProsCons = async (prompt: string) => {
   try {
-    const resp = await fetch(`${environment.backendAPI}/orthography-openai-pros-cons-discusser`, {
+    const resp = await fetch(`${environment.backendAPI}/orthography-openai-pros-cons-discusser-stream`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
