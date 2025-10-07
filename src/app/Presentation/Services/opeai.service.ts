@@ -7,7 +7,7 @@ import { from } from "rxjs";
 export class OpenAiService {
 
   checkOrthography(prompt: string) {
-    return from(orthographyUseCase(prompt));
+    return from(orthographyUseCase(prompt)); // Uso de 'from' para convertir la promesa en un observable
   }
 
   checkProsCons(prompt: string) {
