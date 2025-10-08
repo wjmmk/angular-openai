@@ -13,5 +13,9 @@ import { routes } from '../../../app.routes';
 })
 export class DashboardLayoutComponent {
   // obtiene las rutas declaradas en el app.routes
-  public routes = routes[0].children?.filter((route) => route.data)
+  public routes = routes[0].children?.filter((route) => route.data) ?? [];
+
+  constructor() {
+    //console.log(this.routes);
+  }
 }
