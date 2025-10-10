@@ -26,9 +26,8 @@ import { OpenAiService } from 'app/Presentation/Services/opeai.service';
 export default class ProsConsPageComponent {
 
   public messages = signal<Message[]>([]);
-    public isLoading = signal(false);
-
-    openAiService = inject(OpenAiService)
+  public isLoading = signal(false);
+  public openAiService = inject(OpenAiService)
 
     handleMessage(prompt: string) {
       this.messages.update((prev) => [...prev, { text: prompt, isGpt: false }]);
