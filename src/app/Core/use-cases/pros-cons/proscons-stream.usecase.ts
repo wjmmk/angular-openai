@@ -25,7 +25,7 @@ export const prosConsStreamUseCase = async (prompt: string) => {
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
-        finalText += decoder.decode(value, { stream: !done });
+        finalText += decoder.decode(value, { stream: !doneReading });
         console.log({ finalText });
       }
 
@@ -53,22 +53,21 @@ export async function* prosConsStreamUseCaseGenerator(prompt: string, abortSigna
       if (!resp.ok) throw new Error('Error en la solicitud al intentar la corrección.');
 
       const reader = resp.body?.getReader();
-      if (!reader) throw new Error('No se pudo leer el data del servidor');
+      if (!reader) throw new Error('No se pudo generar el reader');
 
-      const decoder = new TextDecoder('utf-8');
-      let done = false;
-      let finalText = '';
+      const decoder = new TextDecoder();
+      let text = '';
 
       while (true) {
-        const { value, done: doneReading } = await reader.read();
-        if(done) break;
+        const { value, done } = await reader.read();
+        if(done) { break; }
 
-        const chunkValue = decoder.decode(value, { stream: !doneReading });
-        finalText += chunkValue;
-        yield chunkValue;
+        const decodedChunk = decoder.decode(value, { stream: true });
+        text += decodedChunk;
+        yield text;
       }
 
-    return finalText;
+       return text;
   } catch (err) {
     return null;
   }

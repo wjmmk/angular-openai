@@ -34,16 +34,19 @@ export default class ProsConsStreamPageComponent {
     this.abortSignal.abort();
     this.abortSignal = new AbortController();
 
-    this.messages.update(current => [...current, { isGpt: false, text: prompt }]);
+    this.messages.update(current => [...current, { isGpt: false, text: prompt }, {isGpt: true, text: '...'}]);
 
     this.isLoading.set(true);
-
-    const stream = await this.openAiService.checkProsConsStream(prompt, this.abortSignal.signal);
-
+    const stream = this.openAiService.checkProsConsStream(prompt, this.abortSignal.signal);
     this.isLoading.set(false);
 
-    for await (const chunk of stream) {
-      console.log({ chunk });
+    for await (const text of stream) {
+      this.handleStreamResponse(text);
     }
+  }
+
+  handleStreamResponse(message: string) {
+    this.messages().pop();
+    this.messages.set([...this.messages(), {isGpt: true, text: message}])
   }
 }
