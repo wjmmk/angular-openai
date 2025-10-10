@@ -3,15 +3,13 @@ import { environment } from "../../../../environments/environment.development";
 
 export const orthographyUseCase = async (prompt: string) => {
   try {
-    const resp = await fetch(`${environment.backendAPI}/orthography-openai-pros-cons-discusser`, {
+    const resp = await fetch(`${environment.backendAPI}/orthography`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ prompt }),
     });
-
-    console.log('Respuesta del backend: ', resp);
 
     // Manejo de errores de HTTP, fundamental
     if (!resp.ok) {
